@@ -1,0 +1,22 @@
+{
+  "name": "react-redux-persist",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abuzar316/react-redux-persist.git"
+  },
+  "keywords": [
+    "react-redux"
+  ],
+  "author": "Mohammad Abuzar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abuzar316/react-redux-persist/issues"
+  },
+  "homepage": "https://github.com/abuzar316/react-redux-persist#readme"
+}
