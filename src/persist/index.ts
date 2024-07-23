@@ -1,18 +1,20 @@
 import { APP_LAOD } from "../constant";
+import { storeTypes } from "../types";
 
-export const persistReducer = (rootReducer) => (state, action) => {
-  if (action.type === APP_LAOD) {
-    return { ...state, ...action.payload };
-  }
-  return rootReducer(state, action);
-};
+export const persistReducer =
+  (rootReducer: any) => (state: any, action: any) => {
+    if (action.type === APP_LAOD) {
+      return { ...state, ...action.payload };
+    }
+    return rootReducer(state, action);
+  };
 
-export const persistInitialize = (store) => {
+export const persistInitialize = (store: storeTypes) => {
   window.addEventListener("beforeunload", () => {
     localStorage.setItem("my-store", JSON.stringify(store.getState()));
   });
 
-  window.addEventListener(APP_LAOD, () => {
+  window.addEventListener("load", () => {
     const state = localStorage.getItem("my-store");
     if (state) {
       const myState = JSON.parse(state);
