@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/abuzar316/react-redux-persist/issues"
   },
-  "homepage": "https://github.com/abuzar316/react-redux-persist#readme"
+  "homepage": "https://github.com/abuzar316/react-redux-persist#readme",
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
 }
