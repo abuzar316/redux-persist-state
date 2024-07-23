@@ -22,5 +22,8 @@
   "homepage": "https://github.com/abuzar316/react-redux-persist#readme",
   "devDependencies": {
     "typescript": "^5.5.4"
-  }
+  },
+  "files": [
+    "dist/**/*"
+  ]
 }
