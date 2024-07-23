@@ -1,28 +1,25 @@
-const persistReducer = (rootReducer) => (state, action) => {
+export const persistReducer = (rootReducer) => (state, action) => {
   if (action.type === "LOAD") {
     return { ...state, ...action.payload };
   }
   return rootReducer(state, action);
 };
 
-const persistInitialize = (store) => {
+export const persistInitialize = (store) => {
   window.addEventListener("beforeunload", () => {
-    console.log("beforeunload");
     localStorage.setItem("my-store", JSON.stringify(store.getState()));
   });
 
   window.addEventListener("load", () => {
-    console.log("load");
-    const myState = JSON.parse(localStorage.getItem("my-store"));
-    if (myState) {
+    const state = localStorage.getItem("my-store");
+    if (state) {
+      const myState = JSON.parse(state);
       store.dispatch({ type: "LOAD", payload: myState });
       localStorage.removeItem("my-store");
     }
   });
 
-  window.addEventListener("visibilitychange", () => {
-    // console.log("visibilitychange", document.visibilityState, event);
-
+  window.addEventListener("visibilitychange", (event) => {
     if (document.visibilityState === "hidden") {
       localStorage.setItem("my-store", JSON.stringify(store.getState()));
     }
@@ -37,5 +34,3 @@ const persistInitialize = (store) => {
     }
   });
 };
-
-export { persistReducer, persistInitialize };
