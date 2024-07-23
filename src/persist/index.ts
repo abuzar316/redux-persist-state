@@ -1,5 +1,7 @@
+import { APP_LAOD } from "../constant";
+
 export const persistReducer = (rootReducer) => (state, action) => {
-  if (action.type === "LOAD") {
+  if (action.type === APP_LAOD) {
     return { ...state, ...action.payload };
   }
   return rootReducer(state, action);
@@ -10,11 +12,11 @@ export const persistInitialize = (store) => {
     localStorage.setItem("my-store", JSON.stringify(store.getState()));
   });
 
-  window.addEventListener("load", () => {
+  window.addEventListener(APP_LAOD, () => {
     const state = localStorage.getItem("my-store");
     if (state) {
       const myState = JSON.parse(state);
-      store.dispatch({ type: "LOAD", payload: myState });
+      store.dispatch({ type: APP_LAOD, payload: myState });
       localStorage.removeItem("my-store");
     }
   });
@@ -28,7 +30,7 @@ export const persistInitialize = (store) => {
       const data = localStorage.getItem("my-store");
       if (data) {
         let state = JSON.parse(data);
-        store.dispatch({ type: "LOAD", payload: state });
+        store.dispatch({ type: APP_LAOD, payload: state });
         localStorage.removeItem("my-store");
       }
     }
