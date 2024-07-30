@@ -5,7 +5,7 @@ export default {
   output: {
     dir: "dist",
     format: "es",
-    name: "react-redux-persist",
+    name: "redux-persist-state",
   },
   plugins: [typescript({ tsconfig: "tsconfig.json" })],
 };

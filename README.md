@@ -1,26 +1,26 @@
-# react-redux-persist
+# redux-persist-state
 
-`react-redux-persist` is a package that helps you persist your Redux store data across page reloads.
+`redux-persist-state` is a package that helps you persist your Redux store data across page reloads.
 
 ## Installation
 
 To install the package, you can use npm:
 
 ```sh
-npm install react-redux-persist
+npm install redux-persist-state
 ```
 
-Here’s a basic example of how to use react-redux-persist in your Redux setup.
+Here’s a basic example of how to use redux-persist-state in your Redux setup.
 
 ### Step 1:
 
 Configure the Redux Store
-First, create your Redux store and configure it to use persistReducer from react-redux-persist.
+First, create your Redux store and configure it to use persistReducer from redux-persist-state.
 
 ```sh
 // store.js
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import { persistReducer, persistInitialize } from 'react-redux-persist';
+import { persistReducer, persistInitialize } from 'redux-persist-state';
 import counterSlice from './counterSlice';
 
 const rootReducer = combineReducers({
