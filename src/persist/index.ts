@@ -1,4 +1,4 @@
-import { APP_LAOD } from "../constant";
+import { APP_LAOD, storeKey } from "../constant";
 import { storeTypes } from "../types";
 
 export const persistReducer =
@@ -9,32 +9,29 @@ export const persistReducer =
     return rootReducer(state, action);
   };
 
-export const persistInitialize = (store: storeTypes) => {
-  window.addEventListener("beforeunload", () => {
-    localStorage.setItem("my-store", JSON.stringify(store.getState()));
-  });
+const persistStateConfig = (store: any) => {
+  const state = localStorage.getItem(storeKey);
+  if (state) {
+    const myState = JSON.parse(state);
+    store.dispatch({ type: APP_LAOD, payload: myState });
+    localStorage.removeItem(storeKey);
+  }
+};
 
-  window.addEventListener("load", () => {
-    const state = localStorage.getItem("my-store");
-    if (state) {
-      const myState = JSON.parse(state);
-      store.dispatch({ type: APP_LAOD, payload: myState });
-      localStorage.removeItem("my-store");
-    }
+export const persistInitialize = (store: storeTypes) => {
+  persistStateConfig(store);
+
+  window.addEventListener("beforeunload", () => {
+    localStorage.setItem(storeKey, JSON.stringify(store.getState()));
   });
 
   window.addEventListener("visibilitychange", (event) => {
     if (document.visibilityState === "hidden") {
-      localStorage.setItem("my-store", JSON.stringify(store.getState()));
+      localStorage.setItem(storeKey, JSON.stringify(store.getState()));
     }
 
     if (document.visibilityState === "visible") {
-      const data = localStorage.getItem("my-store");
-      if (data) {
-        let state = JSON.parse(data);
-        store.dispatch({ type: APP_LAOD, payload: state });
-        localStorage.removeItem("my-store");
-      }
+      persistStateConfig(store);
     }
   });
 };
