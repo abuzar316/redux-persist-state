@@ -13,8 +13,11 @@
     "url": "git+https://github.com/abuzar316/redux-persist-state.git"
   },
   "keywords": [
+    "redux-persist-state",
+    "redux-persist",
     "react-redux",
-    "redux-persist-state"
+    "redux",
+    "persist"
   ],
   "author": "Mohammad Abuzar",
   "license": "MIT",
