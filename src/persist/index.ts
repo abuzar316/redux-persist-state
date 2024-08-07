@@ -1,4 +1,4 @@
-import { APP_LAOD, storeKey } from "../constant";
+import { APP_LAOD, APP_RESET, storeKey } from "../constant";
 import { storeTypes } from "../types";
 
 export const persistReducer =
@@ -6,6 +6,11 @@ export const persistReducer =
     if (action.type === APP_LAOD) {
       return { ...state, ...action.payload };
     }
+
+    if (action.type === APP_RESET) {
+      return rootReducer(undefined, action);
+    }
+
     return rootReducer(state, action);
   };
 
@@ -18,20 +23,31 @@ const persistStateConfig = (store: any) => {
   }
 };
 
+const storeSetterConfig = (store: any) => () => {
+  localStorage.setItem(storeKey, JSON.stringify(store.getState()));
+};
+
 export const persistInitialize = (store: storeTypes) => {
   persistStateConfig(store);
 
-  window.addEventListener("beforeunload", () => {
-    localStorage.setItem(storeKey, JSON.stringify(store.getState()));
-  });
+  window.addEventListener("beforeunload", storeSetterConfig(store));
 
-  window.addEventListener("visibilitychange", (event) => {
+  window.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "hidden") {
-      localStorage.setItem(storeKey, JSON.stringify(store.getState()));
+      storeSetterConfig(store);
     }
 
     if (document.visibilityState === "visible") {
       persistStateConfig(store);
     }
   });
+
+  const resetStore = () => {
+    return store.dispatch({
+      type: APP_RESET,
+      payload: undefined,
+    });
+  };
+
+  return { resetStore };
 };
